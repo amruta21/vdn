@@ -1,6 +1,6 @@
 var TelegramBot = require('node-telegram-bot-api'),
     // Be sure to replace YOUR_BOT_TOKEN with your actual bot token on this line.
-    telegram = new TelegramBot("1237883249:AAGgIyw7OELicckIC_bcP_WmRIxyF4s7nsc", { polling: true });
+    telegram = new TelegramBot("<api_key>", { polling: true });
 
 var operations = require("./operations/operations");
 var DBF = require('stream-dbf');
