@@ -83,7 +83,6 @@ telegram.on("text", (message) => {
             Ví dụ
             NV000, 1111A, 11111/222, 3333/444, 5555/666`;
             errorFlag = true;
-            console.log("errorFlag");
             telegram.sendMessage(message.chat.id, msg);
         }
         if (msgArray[0] !== "botmappedevent" && errorFlag === false) {
@@ -96,7 +95,6 @@ telegram.on("text", (message) => {
                     if (arrayJobID[jobId] === prodctID) {
                         jobFlag = true;
                         const isNumber = Number.isInteger(Number((msgArray[jobQuantityList].split("/")[1]).trim().toUpperCase()));
-                        console.log(isNumber);
                         const recordedQuantity = operations.getRecordedQuantity(allListRecordsQuantity, jobId);
                         const remainingQuantity = arrayQuantityId[(msgArray[jobQuantityList].split("/")[0]).trim().toUpperCase()] - recordedQuantity;
                         if (remainingQuantity > (msgArray[jobQuantityList].split("/")[1]).trim().toUpperCase() && isNumber) {
@@ -111,11 +109,11 @@ telegram.on("text", (message) => {
                             insertFlag = true;
                         } else {
                             msgQuant += msgArray[jobQuantityList] + ": 0 Sai,"
-                            jobFlag = jobFlag == true ? true : false;
+                            jobFlag = jobFlag == false ? false : true;
                         }
                     } else {
                         msgQuant += msgArray[jobQuantityList] + ": Sai,"
-                        jobFlag = jobFlag == true ? true : false;
+                        jobFlag = jobFlag == false ? false : true;
                     }
                     if (insertFlag == true) {
                         var today = new Date();
@@ -175,7 +173,7 @@ telegram.on("text", (message) => {
                 insertQuantity(bufInsertValue);
                 updateTable(allListRecords, lastUsedValue);
 
-            } else if (validInsert == true && quantityFlag == false && jobFlag == true) {
+            } else if (validInsert == true && quantityFlag == true && jobFlag == false) {
                 msg += "- Lương sản phẩm đã nhập: " + earning.toLocaleString('en-US', {maximumFractionDigits:2}) + "vnd – Đã nhập một phần";
                 insertQuantity(bufInsertValue);
             } else {
