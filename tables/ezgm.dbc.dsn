@@ -1,0 +1,10 @@
+[ODBC]
+DRIVER=Microsoft FoxPro VFP Driver (*.dbf)
+UID=
+Deleted=Yes
+Null=Yes
+Collate=Machine
+BackgroundFetch=Yes
+Exclusive=No
+SourceType=DBC
+SourceDB=E:\ezgm.dbc
