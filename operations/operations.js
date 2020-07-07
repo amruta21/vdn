@@ -1,6 +1,7 @@
 var dbf = require('dbf'),
     fs = require('fs');
 var DBF = require('stream-dbf');
+var moment = require("moment");
 // const fsPromises = fs.promises;
 
 function toBuffer(ab) {
@@ -31,6 +32,10 @@ const read = function(path, keyVal, value) {
     let arrayId = {};
     var parser = new DBF(path);
     parser.stream.on('data', function(record) {
+        if(value === 'ALLOWMULTI') {
+            buf = Buffer.from(record.ALLOWMULTI);
+            record.ALLOWMULTI = buf.toJSON().data[0];
+        }
         arrayId[record[keyVal]]  = value == "True"? value: record[value];
     });
     return arrayId;
@@ -38,18 +43,47 @@ const read = function(path, keyVal, value) {
 
 const getRecordedQuantity = function(records, jobId) {
     let recordedQuantity = 0;
-    records.forEach(element => {
-        // console.log(element.STEPCODE, jobId);
-        if(element.ROWID.includes("bot") && element.STEPCODE == jobId) {
-            // console.log("True");
+    // console.log(records);
+    for (let element of records) {
+        //   console.log(element.STEPCODE, jobId);
+        if(Number(element.STEPCODE.trim()) == jobId) {
+            //  console.log("True", element.QUANTITY);
             recordedQuantity += element.QUANTITY;
         }
-    });
-    // console.log(recordedQuantity);
+        //  console.log("**",recordedQuantity);
+    };
     return recordedQuantity;
+}
+const isValidUser = function(userArray, userId, id, firstName, arrayIdMultiUser) {
+    var flag = false;
+    console.log(arrayIdMultiUser, userId, firstName);
+    if(userArray[userId] === firstName || arrayIdMultiUser[firstName] === 1) {
+        flag = true;
+    }
+
+    return flag;
+}
+const isValidDate = function(date) {
+    var y = date.slice(0, 4);
+    var m = date.slice(4, 6);
+    var d = date.slice(6, 8);
+    var quantityDate = moment(y+'-'+m+'-'+d);
+    var currentDate = moment();
+    var firstdate = moment().startOf('month');
+    if(quantityDate <= currentDate && quantityDate >= firstdate) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+const getTotalEarningCurrentStyle = function() {
+    
 }
 module.exports ={
     update,
     read,
-    getRecordedQuantity
+    getRecordedQuantity,
+    isValidUser,
+    isValidDate
 }

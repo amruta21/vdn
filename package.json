@@ -9,10 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "node-telegram-bot-api": "^0.50.0",
+    "date-and-time": "^0.13.1",
     "dbf": "^0.1.4",
     "dbffile": "^1.4.1",
     "dbfstream": "^1.0.24",
+    "moment": "^2.27.0",
+    "node-telegram-bot-api": "^0.50.0",
     "stream-dbf": "^0.3.0"
   }
 }
