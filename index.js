@@ -1,6 +1,6 @@
 var TelegramBot = require('node-telegram-bot-api'),
     // Be sure to replace YOUR_BOT_TOKEN with your actual bot token on this line.
-    telegram = new TelegramBot("1237883249:AAGgIyw7OELicckIC_bcP_WmRIxyF4s7nsc", { polling: true });
+    telegram = new TelegramBot("Telegram_Id", { polling: true });
 
 var operations = require("./operations/operations");
 var DBF = require('stream-dbf');
@@ -66,8 +66,6 @@ async function updateTable(records, lastValue) {
 }
 
 function getMaxQuantity(arrayRQR, arraySochitiet, prodctID, jobId) {
-    // arraySochitiet[jobId] = arraySochitiet[jobId] === 0 ? 1: arraySochitiet[jobId];
-    // arrayRQR[prodctID] = arrayRQR[prodctID] === 0 ? 1: arrayRQR[prodctID];
     const maxQuantity  = arraySochitiet[jobId] * arrayRQR[prodctID]
     console.log( "jobid"+ jobId, "Sochitiet"+arraySochitiet[jobId] , "arrayRQR[prodctID]" + arrayRQR[prodctID], "Max Quantity" +maxQuantity);
     return maxQuantity;

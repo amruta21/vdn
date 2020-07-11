@@ -2,7 +2,6 @@ var dbf = require('dbf'),
     fs = require('fs');
 var DBF = require('stream-dbf');
 var moment = require("moment");
-// const fsPromises = fs.promises;
 
 function toBuffer(ab) {
     var buffer = new Buffer.alloc(ab.byteLength);
@@ -43,14 +42,10 @@ const read = function(path, keyVal, value) {
 
 const getRecordedQuantity = function(records, jobId) {
     let recordedQuantity = 0;
-    // console.log(records);
     for (let element of records) {
-        //   console.log(element.STEPCODE, jobId);
         if(Number(element.STEPCODE.trim()) == jobId) {
-            //  console.log("True", element.QUANTITY);
             recordedQuantity += element.QUANTITY;
         }
-        //  console.log("**",recordedQuantity);
     };
     return recordedQuantity;
 }
@@ -77,9 +72,6 @@ const isValidDate = function(date) {
     }
 }
 
-const getTotalEarningCurrentStyle = function() {
-    
-}
 module.exports ={
     update,
     read,
