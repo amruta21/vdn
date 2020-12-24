@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "date-and-time": "^0.13.1",
+    "date-and-time": "^0.14.2",
     "dbf": "^0.1.4",
     "dbffile": "^1.4.1",
     "dbfstream": "^1.0.24",
